@@ -1,0 +1,22 @@
+{
+  "name": "unexpected-events",
+  "version": "0.0.0",
+  "description": "Unexpected plugin for unit testing EventEmitters.",
+  "main": "lib/unexpectedEvents.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alexjeffburke/unexpected-events.git"
+  },
+  "author": "Alex J Burke",
+  "license": "BSD",
+  "peerDependencies": {
+    "unexpected": "^10.0.1"
+  },
+  "devDependencies": {
+    "mocha": "=2.2.5",
+    "unexpected": "=10.0.1"
+  }
+}
