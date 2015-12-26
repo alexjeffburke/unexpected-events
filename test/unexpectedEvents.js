@@ -91,4 +91,18 @@ describe('unexpected-events', function () {
             expect(ev, 'for the first event values on', 'foo', 'to equal', 'bar', 'baz')
         , 'to be fulfilled');
     });
+
+    it('should ignore subsequent events on the specified channel', function () {
+        var ev = new EventEmitter();
+
+        // issue the message after the timeout
+        process.nextTick(function () {
+            ev.emit('foo', 'foo');
+            ev.emit('foo', 'bar');
+        });
+
+        return expect(
+            expect(ev, 'for the first event on', 'foo', 'to equal', ['foo'])
+        , 'to be fulfilled');
+    });
 });
