@@ -78,4 +78,17 @@ describe('unexpected-events', function () {
             expect(ev, 'for the first event on', 'foo', 'to equal', ['bar', 'baz'])
         , 'to be fulfilled');
     });
+
+    it('should succeed when the event values match expectations', function () {
+        var ev = new EventEmitter();
+
+        // issue the message after the timeout
+        process.nextTick(function () {
+            ev.emit('foo', 'bar', 'baz');
+        });
+
+        return expect(
+            expect(ev, 'for the first event values on', 'foo', 'to equal', 'bar', 'baz')
+        , 'to be fulfilled');
+    });
 });
