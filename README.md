@@ -13,6 +13,8 @@ match:
 var EventEmitter = require('events').EventEmitter;
 var expect = require('unexpected').clone();
 
+expect.installPlugin(require('unexpected-events'));
+
 describe('single event', function () {
     it('should see the event', function () {
         var emitter = new EventEmitter();
@@ -78,6 +80,8 @@ for you too!
 ```js
 var EventEmitter = require('events').EventEmitter;
 var expect = require('unexpected').clone();
+
+expect.installPlugin(require('unexpected-events'));
 
 describe('multiple test', function () {
     it('should see them all', function () {
