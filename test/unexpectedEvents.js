@@ -65,4 +65,17 @@ describe('unexpected-events', function () {
             expect(ev, 'for the first event on', 'foo', 'to equal', ['bar'])
         , 'to be rejected with', 'No event seen prior to timeout.');
     });
+
+    it('should succeed when the event matches expectations', function () {
+        var ev = new EventEmitter();
+
+        // issue the message after the timeout
+        process.nextTick(function () {
+            ev.emit('foo', 'bar', 'baz');
+        });
+
+        return expect(
+            expect(ev, 'for the first event on', 'foo', 'to equal', ['bar', 'baz'])
+        , 'to be fulfilled');
+    });
 });
