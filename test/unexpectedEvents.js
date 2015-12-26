@@ -17,6 +17,18 @@ describe('unexpected-events', function () {
         , 'to be rejected');
     });
 
+    it('should error on a null value', function () {
+        var ev = new EventEmitter();
+
+        process.nextTick(function () {
+            ev.emit('foo', 'bar');
+        });
+
+        return expect(
+            expect(ev, 'for the first event on', 'foo', 'to equal', null)
+        , 'to be rejected');
+    });
+
     it('should error on incomplete message', function () {
         var ev = new EventEmitter();
 
