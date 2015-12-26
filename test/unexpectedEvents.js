@@ -105,4 +105,33 @@ describe('unexpected-events', function () {
             expect(ev, 'for the first event on', 'foo', 'to equal', ['foo'])
         , 'to be fulfilled');
     });
+
+    it('should succeed comparing the second event', function () {
+        var ev = new EventEmitter();
+
+        // issue the message after the timeout
+        process.nextTick(function () {
+            ev.emit('foo', 'quux');
+            ev.emit('foo', 'xuuq');
+        });
+
+        return expect(
+            expect(ev, 'for the second event on', 'foo', 'to equal', ['xuuq'])
+        , 'to be fulfilled');
+    });
+
+    it('should succeed comparing the third event', function () {
+        var ev = new EventEmitter();
+
+        // issue the message after the timeout
+        process.nextTick(function () {
+            ev.emit('foo', 'bar');
+            ev.emit('foo', 'baz');
+            ev.emit('foo', 'quux');
+        });
+
+        return expect(
+            expect(ev, 'for the third event on', 'foo', 'to equal', ['quux'])
+        , 'to be fulfilled');
+    });
 });
