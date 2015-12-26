@@ -19,10 +19,10 @@ describe('single event', function () {
 
         // issue the event once listeners have a chance to attach
         process.nextTick(function () {
-            ev.emit('foo', 'bar', 'baz');
+            emitter.emit('foo', 'bar', 'baz');
         });
 
-        emitter(ev, 'for the first event on', 'foo', 'to equal', ['bar', 'baz']);
+        expect(emitter, 'for the first event on', 'foo', 'to equal', ['bar', 'baz']);
     });
 });
 ```
@@ -36,13 +36,13 @@ channel before doing the matching.
 - check the second event (i.e. skip **one** event)
 
     ```js
-    emitter(ev, 'for the second event values on', 'foo', 'to equal', 'something');
+    expect(emitter, 'for the second event values on', 'foo', 'to equal', 'something');
     ```
 
 - check the third event (i.e. skip **two** events)
 
     ```js
-    emitter(ev, 'for the second event values on', 'foo', 'to equal', 'something');
+    expect(emitter, 'for the second event values on', 'foo', 'to equal', 'something');
     ```
 
 ### Readability
@@ -60,10 +60,10 @@ describe('basic test with varargs', function () {
 
         // issue the event once listeners have a chance to attach
         process.nextTick(function () {
-            ev.emit('foo', 'bar', 'baz');
+            emitter.emit('foo', 'bar', 'baz');
         });
 
-        emitter(ev, 'for the first event values on', 'foo', 'to equal', 'bar', 'baz');
+        expect(emitter, 'for the first event values on', 'foo', 'to equal', 'bar', 'baz');
     });
 });
 ```
@@ -85,11 +85,11 @@ describe('multiple test', function () {
 
         // issue the event once listeners have a chance to attach
         process.nextTick(function () {
-            ev.emit('foo', 'bar');
-            ev.emit('foo', 'baz');
+            emitter.emit('foo', 'bar');
+            emitter.emit('foo', 'baz');
         });
 
-        emitter(ev, 'for the multiple event on', 'foo', 'to equal', [
+        expect(emitter, 'for the multiple events on', 'foo', 'to equal', [
             ['bar'],
             ['baz']
         ]);
