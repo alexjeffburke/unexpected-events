@@ -134,4 +134,44 @@ describe('unexpected-events', function () {
             expect(ev, 'for the third event on', 'foo', 'to equal', ['quux'])
         , 'to be fulfilled');
     });
+
+    describe('multiple events on channel', function () {
+        it('should succeed comparing multiple events', function () {
+            var ev = new EventEmitter();
+
+            // issue the message after the timeout
+            process.nextTick(function () {
+                ev.emit('foo', 'bar');
+                ev.emit('foo', 'quux');
+                ev.emit('foo', 'baz');
+            });
+
+            return expect(
+                expect(ev, 'for the multiple events on', 'foo', 'to equal', [
+                    ['bar'],
+                    ['quux'],
+                    ['baz']
+                ])
+            , 'to be fulfilled');
+        });
+
+        it('should fail comparing multiple events that do not match', function () {
+            var ev = new EventEmitter();
+
+            // issue the message after the timeout
+            process.nextTick(function () {
+                ev.emit('foo', 'bar');
+                ev.emit('foo', 'foo');
+                ev.emit('foo', 'baz');
+            });
+
+            return expect(
+                expect(ev, 'for the multiple events on', 'foo', 'to equal', [
+                    ['bar'],
+                    ['quux'],
+                    ['baz']
+                ])
+            , 'to be rejected');
+        });
+    });
 });
