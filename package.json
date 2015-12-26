@@ -1,6 +1,6 @@
 {
   "name": "unexpected-events",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Unexpected plugin for unit testing EventEmitters.",
   "main": "lib/unexpectedEvents.js",
   "scripts": {
