@@ -99,7 +99,7 @@ describe('unexpected-events', function () {
         });
 
         return expect(
-            expect(ev, 'for the first event on', 'foo', 'to equal', ['bar', 'baz'])
+            expect(ev, 'for the event on', 'foo', 'to equal', ['bar', 'baz'])
         , 'to be fulfilled');
     });
 
@@ -112,7 +112,7 @@ describe('unexpected-events', function () {
         });
 
         return expect(
-            expect(ev, 'for the first event values on', 'foo', 'to equal', 'bar', 'baz')
+            expect(ev, 'for the event values on', 'foo', 'to equal', 'bar', 'baz')
         , 'to be fulfilled');
     });
 
@@ -126,7 +126,20 @@ describe('unexpected-events', function () {
         });
 
         return expect(
-            expect(ev, 'for the first event on', 'foo', 'to equal', ['foo'])
+            expect(ev, 'for the event on', 'foo', 'to equal', ['foo'])
+        , 'to be fulfilled');
+    });
+
+    it('should succeed comparing the first event', function () {
+        var ev = new EventEmitter();
+
+        // issue the message after the timeout
+        process.nextTick(function () {
+            ev.emit('foo', 'quux');
+        });
+
+        return expect(
+            expect(ev, 'for the first event on', 'foo', 'to equal', ['quux'])
         , 'to be fulfilled');
     });
 
