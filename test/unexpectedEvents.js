@@ -1,9 +1,10 @@
 var EventEmitter = require('events').EventEmitter;
 var expect = require('unexpected');
+var unexpectedEvents = require('../lib/unexpectedEvents');
 
 describe('unexpected-events', function () {
     expect = expect.clone();
-    expect.installPlugin(require('../lib/unexpectedEvents'));
+    expect.installPlugin(unexpectedEvents);
 
     it('should error on an undefined value', function () {
         var ev = new EventEmitter();
