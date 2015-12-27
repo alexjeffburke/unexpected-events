@@ -87,7 +87,7 @@ describe('unexpected-events', function () {
 
         return expect(
             expect(ev, 'for the first event on', 'foo', 'to equal', ['bar'])
-        , 'to be rejected with', 'No event seen prior to timeout.');
+        , 'to be rejected with', 'Expected event not seen prior to timeout.');
     });
 
     it('should succeed when the event matches expectations', function () {
