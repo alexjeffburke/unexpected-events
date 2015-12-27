@@ -184,7 +184,7 @@ describe('unexpected-events', function () {
             });
 
             return expect(
-                expect(ev, 'for the multiple events on', 'foo', 'to equal', [
+                expect(ev, 'for multiple events on', 'foo', 'to equal', [
                     ['bar'],
                     ['quux'],
                     ['baz']
@@ -203,7 +203,7 @@ describe('unexpected-events', function () {
             });
 
             return expect(
-                expect(ev, 'for the multiple events on', 'foo', 'to equal', [
+                expect(ev, 'for multiple events on', 'foo', 'to equal', [
                     ['bar'],
                     ['quux'],
                     ['baz']
