@@ -32,19 +32,19 @@ describe('single event', function () {
 In this case you can see an event on the channel _foo_ with the values
 _foo_ and _bar_ being sent.
 
-Two special assertions are provided in case you need to ignore messages on the
-channel before doing the matching.
+Two special forms of the assertion are provided in case you need to ignore a
+certain number of messages before doing the comparisons:
 
 - check the second event (i.e. skip **one** event)
 
     ```js
-    expect(emitter, 'for the second event values on', 'foo', 'to equal', 'something');
+    expect(emitter, 'for the second event on', 'foo', 'to equal', ['something']);
     ```
 
 - check the third event (i.e. skip **two** events)
 
     ```js
-    expect(emitter, 'for the second event values on', 'foo', 'to equal', 'something');
+    expect(emitter, 'for the third event on', 'foo', 'to equal', ['something']);
     ```
 
 ### Readability
@@ -65,10 +65,13 @@ describe('basic test with varargs', function () {
             emitter.emit('foo', 'bar', 'baz');
         });
 
-        expect(emitter, 'for the first event values on', 'foo', 'to equal', 'bar', 'baz');
+        expect(emitter, 'for the event values on', 'foo', 'to equal', 'bar', 'baz');
     });
 });
 ```
+
+You'll also notice, as in the example above, you can drop the word _first_ when
+comparing a single event.
 
 For your convenience you understand.
 
@@ -93,7 +96,7 @@ describe('multiple test', function () {
             emitter.emit('foo', 'baz');
         });
 
-        expect(emitter, 'for the multiple events on', 'foo', 'to equal', [
+        expect(emitter, 'for multiple events on', 'foo', 'to equal', [
             ['bar'],
             ['baz']
         ]);
