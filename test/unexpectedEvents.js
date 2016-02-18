@@ -185,9 +185,9 @@ describe('unexpected-events', function () {
 
             return expect(
                 expect(ev, 'for multiple events on', 'foo', 'to equal', [
-                    ['bar'],
-                    ['quux'],
-                    ['baz']
+                    { args: ['bar'] },
+                    { args: ['quux'] },
+                    { args: ['baz'] }
                 ])
             , 'to be fulfilled');
         });
@@ -204,9 +204,9 @@ describe('unexpected-events', function () {
 
             return expect(
                 expect(ev, 'for multiple events on', 'foo', 'to equal', [
-                    ['bar'],
-                    ['quux'],
-                    ['baz']
+                    { args: ['bar'] },
+                    { args: ['quux'] },
+                    { args: ['baz'] }
                 ])
             , 'to be rejected');
         });

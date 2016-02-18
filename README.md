@@ -97,8 +97,8 @@ describe('multiple test', function () {
         });
 
         expect(emitter, 'for multiple events on', 'foo', 'to equal', [
-            ['bar'],
-            ['baz']
+            { args: ['bar'] },
+            { args: ['baz'] }
         ]);
     });
 });
