@@ -192,6 +192,14 @@ describe('unexpected-events', function () {
             , 'to be fulfilled');
         });
 
+        it('should handle an empty input event list', function () {
+            var ev = new EventEmitter();
+
+            return expect(
+                expect(ev, 'for multiple events on', 'foo', 'to equal', [])
+            , 'to be fulfilled');
+        });
+
         it('should fail comparing multiple events that do not match', function () {
             var ev = new EventEmitter();
 
@@ -208,6 +216,18 @@ describe('unexpected-events', function () {
                     { args: ['quux'] },
                     { args: ['baz'] }
                 ])
+            , 'to be rejected');
+        });
+
+        it('should fail on an empty event list but a captured event', function () {
+            var ev = new EventEmitter();
+
+            setTimeout(function () {
+                ev.emit('foo', 'boom');
+            }, 1000);
+
+            return expect(
+                expect(ev, 'for multiple events on', 'foo', 'to equal', [])
             , 'to be rejected');
         });
     });
