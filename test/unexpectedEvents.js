@@ -232,4 +232,36 @@ describe('unexpected-events', function () {
             , 'to be rejected');
         });
     });
+
+    describe('capturing events on channel', function () {
+        it('should succeed capturing events on a channel', function () {
+            var ev = new EventEmitter();
+            var capturedEvent = expect(ev, 'to capture events on', 'foo');
+            var inputEvents = [
+                ['foo', 'bar', 'biggs'],
+                ['foo', 'baz', 'bingo', 'bob'],
+                ['foobar', 'hopefully_not'],
+                ['foo', 'quux']
+            ];
+            var expectedEvents = [].concat(inputEvents);
+            expectedEvents.splice(2, 1);
+            var expectedEventValues = expectedEvents.map(function (event) {
+                return event.slice(1);
+            });
+
+            return expect.promise(function (resolve, reject) {
+                process.nextTick(function () {
+                    inputEvents.forEach(function (eventValues) {
+                        ev.emit.apply(ev, eventValues);
+                    });
+                    resolve();
+                });
+            }).then(function () {
+                return capturedEvent;
+            }).then(function (events) {
+                expect(events, 'to have items satisfying', expect.it('to be an', unexpectedEvents.UnexpectedEvent));
+                expect(events.map(function (event) { return event.args; }), 'to equal', expectedEventValues);
+            });
+        });
+    });
 });
