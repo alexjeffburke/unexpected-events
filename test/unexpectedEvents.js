@@ -293,4 +293,28 @@ describe('unexpected-events', function () {
             , 'to be fulfilled');
         });
     });
+
+    describe('"for event"', function () {
+        it('should error if the requested event was not present', function () {
+            var events = new unexpectedEvents.UnexpectedEvents([
+                new unexpectedEvents.UnexpectedEvent(['foo'])
+            ]);
+
+            return expect(function () {
+                expect(events, 'for event', 2, 'to equal', 'foo');
+            }, 'to error', 'Expected event was not seen.');
+        });
+
+        it('should allow check for the third event', function () {
+            var events = new unexpectedEvents.UnexpectedEvents([
+                new unexpectedEvents.UnexpectedEvent(['foo']),
+                new unexpectedEvents.UnexpectedEvent(['bar']),
+                new unexpectedEvents.UnexpectedEvent(['baz'])
+            ]);
+
+            return expect(
+                expect(events, 'for event', 3, 'to equal', 'baz')
+            , 'to be fulfilled');
+        });
+    });
 });
