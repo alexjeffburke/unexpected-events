@@ -258,10 +258,39 @@ describe('unexpected-events', function () {
                 });
             }).then(function () {
                 return capturedEvent;
-            }).then(function (events) {
+            }).then(function (outputEvents) {
+                expect(outputEvents, 'to be an', unexpectedEvents.UnexpectedEvents);
+
+                var events = outputEvents.events;
                 expect(events, 'to have items satisfying', expect.it('to be an', unexpectedEvents.UnexpectedEvent));
                 expect(events.map(function (event) { return event.args; }), 'to equal', expectedEventValues);
             });
+        });
+    });
+
+    describe('UnexpectedEvents', function () {
+        it('should error if events were not wrapped', function () {
+            expect(function () {
+                new unexpectedEvents.UnexpectedEvents([
+                    new unexpectedEvents.UnexpectedEvent(['foo']),
+                    ['quux'],
+                ]);
+            }, 'to error', 'Value supplied was not event values array.');
+        });
+
+        it('should succeed comparing matching objects', function () {
+            var lhs = new unexpectedEvents.UnexpectedEvents([
+                new unexpectedEvents.UnexpectedEvent(['foo']),
+                new unexpectedEvents.UnexpectedEvent(['bar'])
+            ]);
+            var rhs = new unexpectedEvents.UnexpectedEvents([
+                new unexpectedEvents.UnexpectedEvent(['foo']),
+                new unexpectedEvents.UnexpectedEvent(['bar'])
+            ]);
+
+            return expect(
+                expect(lhs, 'to equal', rhs)
+            , 'to be fulfilled');
         });
     });
 });
