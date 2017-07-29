@@ -16,7 +16,7 @@
     "unexpected": "^10.0.1"
   },
   "devDependencies": {
-    "mocha": "=2.2.5",
-    "unexpected": "=10.0.1"
+    "mocha": "^3.0.0",
+    "unexpected": "^10.9.0"
   }
 }
