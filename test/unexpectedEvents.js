@@ -278,6 +278,14 @@ describe('unexpected-events', function () {
             }, 'to error', 'Value supplied was not event values array.');
         });
 
+        it('should on invalid expectation call', function () {
+            expect(function () {
+                var events = new unexpectedEvents.UnexpectedEvents([]);
+
+                events.event('foo', 'bar');
+            }, 'to error', 'event() called when not in expectation mode.');
+        });
+
         it('should succeed comparing matching objects', function () {
             var lhs = new unexpectedEvents.UnexpectedEvents([
                 new unexpectedEvents.UnexpectedEvent(['foo']),
@@ -315,6 +323,21 @@ describe('unexpected-events', function () {
             return expect(
                 expect(events, 'for event', 3, 'to equal', 'baz')
             , 'to be fulfilled');
+        });
+    });
+
+    describe('"to have events satisfying"', function () {
+        it('should work', function () {
+            var eventEmitter = new EventEmitter();
+            var unexpectedEvents = expect(eventEmitter, 'to capture events on', 'foo');
+
+            return expect(function () {
+                eventEmitter.emit('foo', 'foobar');
+            }, 'not to error').then(function () {
+                expect(unexpectedEvents, 'to have events satisfying', function () {
+                    unexpectedEvents.event('bob', 'foobar');
+                });
+            });
         });
     });
 });
